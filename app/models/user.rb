@@ -2,11 +2,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include Mongoid::Slug
-  # include Mongoid::Encryptor
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -30,34 +26,27 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  ## Confirmable
-  # field :confirmation_token,   type: String
-  # field :confirmed_at,         type: Time
-  # field :confirmation_sent_at, type: Time
-  # field :unconfirmed_email,    type: String # Only if using reconfirmable
-
-  ## Lockable
-  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
-  # field :locked_at,       type: Time
-
-
   # omniauth
   field :provider, type: String
   field :uid, type: String
 
   field :name, type: String
+  field :image_url, type: String
 
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
-    user = where(email: data["email"]).first
+    # access_token.info:
+    #   <OmniAuth::AuthHash::InfoHash email="ianhenrysmith@gmail.com" first_name="Ian" image="https://lh4.googleusercontent.com/-lXsIA_0NVf4/AAAAAAAAAAI/AAAAAAAAAAA/85oxmxEOap8/photo.jpg?sz=50" last_name="Smith" name="Ian Smith" urls=#<OmniAuth::AuthHash Google="https://plus.google.com/112630439057536304609">>
 
-    unless user
-        user = create(name: data["name"],
-           email: data["email"],
-           password: Devise.friendly_token[0,20]
-        )
+    unless user = User.where(email: access_token.info["email"]).first
+      pw = Devise.friendly_token[0,20]
+      user = User.create(
+        name: access_token.info["name"],
+        email: access_token.info["email"],
+        password: pw,
+        password_confirmation: pw,
+        image_url: access_token.info["image"]
+      )
     end
 
     user

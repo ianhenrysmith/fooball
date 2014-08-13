@@ -233,7 +233,7 @@ Devise.setup do |config|
 
   require 'omniauth-google-oauth2'
 
-  config.omniauth :google_oauth2, "1088406969483-hrpkt4e5nftpu4jhaiina8m2bsh0psog.apps.googleusercontent.com", "Tz6-sPxrZk54oW2U4ChwIkvR", scope: "email, profile, plus.me, http://gdata.youtube.com"
+  config.omniauth :google_oauth2, "1088406969483-hrpkt4e5nftpu4jhaiina8m2bsh0psog.apps.googleusercontent.com", "Tz6-sPxrZk54oW2U4ChwIkvR", scope: "email, profile, plus.me"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
