@@ -35,6 +35,10 @@ gem "omniauth-google-oauth2"
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
+
+gem "bson"
+gem "moped", github: "mongoid/moped"
 gem "bson_ext"
 gem "mongoid", ">= 2.0.0.beta.19"
+
 gem "rspec-rails", ">= 2.0.1", group: [:development, :test]

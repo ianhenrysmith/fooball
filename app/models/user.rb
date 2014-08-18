@@ -52,4 +52,16 @@ class User
     user
   end
 
+  def self.for_league(league)
+    find(league.user_ids)
+  end
+
+  def leagues
+    League.with_user(self)
+  end
+
+  def teams
+    Team.for_user(self)
+  end
+
 end

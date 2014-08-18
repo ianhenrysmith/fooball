@@ -1,0 +1,9 @@
+%h2= @team.name
+
+%p 
+  %span owner:
+  = link_to @owner.name, user_path(@owner)
+
+%p
+  %span league:
+  = link_to @league.name, league_path(@league)

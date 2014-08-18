@@ -1,0 +1,18 @@
+%h2="#{@league.name} Home"
+
+- if @league.admin_ids.include?(current_user.id)
+  %p= link_to 'edit league', edit_league_path(@league)
+
+%div
+  %span Admins:
+  - for admin in @admins
+    = link_to admin.name, user_path(admin)
+
+%div
+  %p Teams:
+  - for team in @teams
+    - user = @users_by_team_id[team.id]
+    = link_to team.name, team_path(team)
+    %span owner:
+    = link_to user.name, user_path(user)
+    

@@ -1,0 +1,10 @@
+%h2= @user.name
+
+
+%p Leagues:
+- for league in @leagues
+  %p= link_to league.name, league_path(league)
+
+%p Teams:
+- for team in @teams
+  %p= link_to team.name, team_path(team)

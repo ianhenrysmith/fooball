@@ -1,0 +1,13 @@
+%h2 New League
+
+= form_for @league do |f|
+  %table
+    %tr
+      %td name:
+      %td
+        = f.text_field :name
+
+    %tr
+      %td
+      %td
+        = f.submit

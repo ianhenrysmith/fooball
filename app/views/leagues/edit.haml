@@ -1,0 +1,28 @@
+= link_to "back to league", league_path(@league)
+
+= form_for @league do |f|
+  %table
+    %tr
+      %td name:
+      %td
+        = f.text_field :name
+
+    %tr
+      %td Admins:
+      %td
+        - for admin in @admins
+          = link_to admin.name, user_path(admin)
+
+    %tr
+      %td Teams:
+      %td
+        - for team in @teams
+          - user = @users_by_team_id[team.id]
+          = link_to team.name, team_path(team)
+          %span owner:
+          = link_to user.name, user_path(user)
+
+    %tr
+      %td
+      %td
+        = f.submit
