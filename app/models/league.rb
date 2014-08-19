@@ -28,11 +28,11 @@ class League
   end
 
   def admins
-    User.find(admin_ids)
+    User.where(:id.in => admin_ids).to_a
   end
 
   def teams
-    Team.find(team_ids)
+    Team.where(:id.in => team_ids).to_a
   end
 
 end

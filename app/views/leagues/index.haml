@@ -1,1 +1,17 @@
 LEAGUES
+
+- for league in @leagues
+  - teams = @teams.select{|t| t.league_id == league.id}
+  - has_team_in_league = teams.any?{|t| t.owner_id == current_user.id}
+  - is_admin_of_league = league.admin_ids.include?(current_user.id)
+
+  %p
+    - if has_team_in_league
+      = link_to league.name, league_path(league)
+      %span (you belong to this league)
+    - else
+      %span= league.name
+      = link_to "Create a team in this league", new_team_path(league_id: league.id)
+
+    - if is_admin_of_league
+      %span (you're an admin of this league)

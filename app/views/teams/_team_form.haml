@@ -1,0 +1,12 @@
+= form_for @team do |f|
+  = f.hidden_field :league_id
+  %table
+    %tr
+      %td Name
+      %td
+        = f.text_field :name
+
+    %tr
+      %td
+      %td
+        = f.submit

@@ -1,12 +1,13 @@
 %p HELLO
 
 - if current_user
-  %div
-    %b
-      = link_to 'New League', new_league_path
-      
   - if @leagues.present?
     %p Leagues you're in:
     - for league in @leagues
       %div
         = link_to league.name, league_path(league)
+
+  %div
+    %p= link_to "Join a League", leagues_path
+  %div
+    %small= link_to 'New League', new_league_path

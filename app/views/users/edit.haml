@@ -1,0 +1,19 @@
+%h2 Editing Your Profile
+
+%p= link_to 'back to profile', user_path(@user)
+
+= form_for @user do |f|
+  %table
+    %tr
+      %td Name
+      %td
+        = f.text_field :name
+    %tr
+      %td Image URL
+      %td
+        = f.text_field :image_url
+
+    %tr
+      %td
+      %td
+        = f.submit

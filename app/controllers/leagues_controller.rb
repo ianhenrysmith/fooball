@@ -11,7 +11,10 @@ class LeaguesController < ActionController::Base
   before_filter :get_associated, only: [:show, :edit, :update]
 
   def index
-  
+    @leagues = League.limit(100).to_a
+
+    league_ids = @leagues.map(&:id)
+    @teams = Team.where(:league_id.in => league_ids).to_a
   end
 
   def show

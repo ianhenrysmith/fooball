@@ -1,0 +1,7 @@
+%h2 New Team
+
+%div
+  %span Joining league
+  = link_to @league.name, league_path(@league)
+
+= render partial: 'team_form'
