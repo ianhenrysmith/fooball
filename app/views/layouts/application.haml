@@ -9,7 +9,8 @@
   %body
     = render partial: 'application/nav'
 
-    %p.notice= notice
-    %p.alert= alert
+    .container
+      %p.notice= notice
+      %p.alert= alert
 
-    = yield
+      = yield
