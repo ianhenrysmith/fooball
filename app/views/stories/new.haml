@@ -1,0 +1,22 @@
+- content_for(:header, "New Story")
+
+= form_for @story, html: { class: 'form-horizontal' } do |f|
+  = f.hidden_field :parent_id
+  = f.hidden_field :parent_type
+  
+  .form-group
+    %label.col-sm-2.control-label Title
+
+    .col-sm-10
+      = f.text_field :title, class: 'form-control', placeholder: 'Title'
+
+  .form-group
+    %label.col-sm-2.control-label Body
+
+    .col-sm-10
+      = f.text_field :body, class: 'form-control', placeholder: 'Body'
+
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit nil, class: 'btn btn-default'

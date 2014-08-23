@@ -1,0 +1,11 @@
+- content_for(:header, @story.title)
+
+%p
+  %span Posted in
+  = link_to @parent.name, polymorphic_path(@parent)
+
+  %span by
+  = link_to @creator.name, user_path(@creator)
+
+.container
+  = @story.body

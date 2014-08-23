@@ -11,7 +11,7 @@ class LeaguesController < BaseController
   end
 
   def show
-    
+    @stories = Story.for_parent(@league).to_a
   end
 
   def edit

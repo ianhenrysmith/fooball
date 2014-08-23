@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :leagues
   resources :users
   resources :teams
-  resources :threads
+  resources :stories
 
   # You can have the root of your site routed with "root"
   root to: "application#index"
