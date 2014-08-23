@@ -1,4 +1,4 @@
-%h2="#{@league.name} Home"
+- content_for(:header, "#{@league.name} Home")
 
 - if @league.admin_ids.include?(current_user.id)
   %p= link_to 'edit league', edit_league_path(@league)

@@ -13,4 +13,8 @@
       %p.notice= notice
       %p.alert= alert
 
+      - if content_for?(:header)
+        .page-header
+          %h2= yield :header
+
       = yield
