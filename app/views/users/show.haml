@@ -1,13 +1,18 @@
 - content_for(:header, @user.name)
 
 - if current_user.id == @user.id
-  %p= link_to 'Edit Profile', edit_user_path(@user)
+  .row
+    = link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-default btn-xs btn-primary"
 
 
-%p Leagues:
-- for league in @leagues
-  %p= link_to league.name, league_path(league)
+.row
+  - if @leagues
+    %p Leagues:
+    - for league in @leagues
+      %p= link_to league.name, league_path(league)
 
-%p Teams:
-- for team in @teams
-  %p= link_to team.name, team_path(team)
+.row
+  - if @teams
+    %p Teams:
+    - for team in @teams
+      %p= link_to team.name, team_path(team)

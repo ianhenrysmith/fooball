@@ -10,8 +10,10 @@
     = render partial: 'application/nav'
 
     .container
-      %p.notice= notice
-      %p.alert= alert
+      - if notice
+        .alert.alert-info.notice= notice
+      - if alert
+        .alert.alert-warning.notice= alert
 
       - if content_for?(:header)
         .page-header
