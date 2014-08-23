@@ -1,9 +1,4 @@
-class UsersController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  layout 'application'
-
-  before_action :authenticate_user!
+class UsersController < BaseController
 
   before_filter :find_user, only: [:show, :edit, :update]
   before_filter :get_associated, only: [:show, :edit, :update]

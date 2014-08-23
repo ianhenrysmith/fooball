@@ -1,10 +1,5 @@
-class ThreadsController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  layout 'application'
-
-  before_action :authenticate_user!
-
+class ThreadsController < BaseController
+  
   before_filter :find_thread, only: [:new, :show, :create]
   # before_filter :get_associated, only: [:show, :edit, :update]
 
@@ -49,7 +44,7 @@ class ThreadsController < ActionController::Base
     @creator = @thread.creator
   end
 
-  def new_team
+  def new_thread
     Thread.new(parent_type: params[:parent_type], parent_id: params[:parent_id])
   end
 

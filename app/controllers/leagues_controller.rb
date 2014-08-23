@@ -1,11 +1,4 @@
-class LeaguesController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
-
-  layout 'application'
-
-  before_action :authenticate_user!
+class LeaguesController < BaseController
 
   before_filter :get_league, only: [:show, :edit, :new, :update, :create]
   before_filter :get_associated, only: [:show, :edit, :update]

@@ -1,9 +1,4 @@
-class TeamsController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  layout 'application'
-
-  before_action :authenticate_user!
+class TeamsController < BaseController
 
   before_filter :get_team, only: [:show, :edit, :new, :update, :create]
   before_filter :get_associated, only: [:show, :update]
