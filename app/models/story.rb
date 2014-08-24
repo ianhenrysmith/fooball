@@ -5,7 +5,7 @@ class Story
   field :title, type: String
 
   def children
-    Comment.for_parent(self)
+    Comment.for_parent(self).to_a
   end
 
   def name

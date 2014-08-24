@@ -1,0 +1,9 @@
+.col-lg-1
+  %p= link_to user.name, user_path(user)
+  %small
+    = comment.created_at.strftime("%-m/%e/%Y")
+
+.col-lg-11
+  %p= comment.body
+
+.clearfix.visible-lg-block

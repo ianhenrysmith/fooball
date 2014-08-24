@@ -1,7 +1,7 @@
 - content_for(:header, @story.title)
 
 .row
-  %p
+  .container
     %span Posted in
     = link_to @parent.name, polymorphic_path(@parent)
 
@@ -13,5 +13,16 @@
     = @story.body
 
 .row{style: 'margin-top: 2em'}
-  = link_to "Add a Comment", new_comment_path(comment: { parent_id: @story.id, parent_type: "Story" }), class: 'btn btn-primary btn-sml'
+  .container
+    = link_to "Add a Comment", new_comment_path(comment: { parent_id: @story.id, parent_type: "Story" }), class: 'btn btn-primary btn-sml'
+
+- if @comments.present?
+  .container
+    .row{style: 'margin-top: 2em'}
+      %h4= pluralize(@comments.count, "Reply")
+
+      - for comment in @comments
+        - comment_creator = @users.detect{ |u| u.id == comment.creator_id }
+        %hr
+        = render partial: "shared/comment_stub", locals: { comment: comment, user: comment_creator }
 

@@ -20,7 +20,12 @@ class StoriesController < BaseController
   end
 
   def show
+    @comments = @story.children
 
+    if @comments.present?
+      comment_creator_ids = @comments.map(&:creator_id)
+      @users = User.where(:id.in => comment_creator_ids).to_a
+    end
   end
 
   def edit
