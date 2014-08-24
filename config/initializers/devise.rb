@@ -233,7 +233,10 @@ Devise.setup do |config|
 
   require 'omniauth-google-oauth2'
 
-  config.omniauth :google_oauth2, "1088406969483-hrpkt4e5nftpu4jhaiina8m2bsh0psog.apps.googleusercontent.com", "Tz6-sPxrZk54oW2U4ChwIkvR", scope: "email, profile, plus.me"
+  google_client_id = ENV["GOOGLE_CLIENT_ID"] || "1088406969483-hrpkt4e5nftpu4jhaiina8m2bsh0psog.apps.googleusercontent.com"
+  google_client_secret = ENV["GOOGLE_CLIENT_SECRET"] || "Tz6-sPxrZk54oW2U4ChwIkvR"
+
+  config.omniauth :google_oauth2, google_client_id, google_client_secret, scope: "email, profile, plus.me"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
