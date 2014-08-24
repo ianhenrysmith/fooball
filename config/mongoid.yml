@@ -67,3 +67,15 @@ test:
         # low amounts for fast failures.
         max_retries: 1
         retry_interval: 0
+
+production:
+  sessions:
+    default:
+      hosts:
+        - <%= ENV['MONGOID_PRIMARY_HOST_PORT'] %>
+      database: <%= ENV['MONGOID_DATABASE'] %>
+      username: <%= ENV['MONGOID_USERNAME'] %>
+      password: <%= ENV['MONGOID_PASSWORD'] %>
+      options:
+        safe: false
+
