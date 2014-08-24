@@ -1,7 +1,7 @@
 class LeaguesController < BaseController
 
   before_filter :get_league, only: [:show, :edit, :new, :update, :create]
-  before_filter :get_associated, only: [:show, :edit, :update]
+  before_filter :get_associated, only: [:show, :edit]
 
   def index
     @leagues = League.limit(100).to_a
@@ -21,7 +21,7 @@ class LeaguesController < BaseController
   def update
     @league.update_attributes(league_params)
 
-    render :show
+    redirect_to league_path(@league)
   end
 
   def new
@@ -32,7 +32,7 @@ class LeaguesController < BaseController
 
     get_associated
 
-    render :show
+    redirect_to league_path(@league)
   end
 
   private
