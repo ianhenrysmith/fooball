@@ -1,18 +1,18 @@
-.row
-  - if current_user
-    - if @leagues.present?
+- if current_user
+  - if @leagues.present?
+    .row
       %p Leagues you're in:
       - for league in @leagues
         %div
           = link_to league.name, league_path(league)
 
-    %div
-      %p= link_to "Join a League", leagues_path
-    %div
-      %small= link_to 'New League', new_league_path
+  .row{style: 'margin-top: 2em;'}
+    %p= link_to "Join a League", leagues_path, class: 'btn btn-primary'
+  .row
+    = link_to 'New League', new_league_path, class: 'btn btn-default btn-sm'
 
-  - else
-    .jumbotron.col-md-6.col-md-offset-3.text-center
-      %h3="You're not signed in."
+- else
+  .jumbotron.col-md-6.col-md-offset-3.text-center
+    %h3="You're not signed in."
 
-      = link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-lg btn-success"
+    = link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-lg btn-success"
