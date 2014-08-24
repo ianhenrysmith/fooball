@@ -76,6 +76,4 @@ production:
       database: <%= ENV['MONGOID_DATABASE'] %>
       username: <%= ENV['MONGOID_USERNAME'] %>
       password: <%= ENV['MONGOID_PASSWORD'] %>
-      options:
-        safe: false
 
