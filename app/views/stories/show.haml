@@ -1,11 +1,17 @@
 - content_for(:header, @story.title)
 
-%p
-  %span Posted in
-  = link_to @parent.name, polymorphic_path(@parent)
+.row
+  %p
+    %span Posted in
+    = link_to @parent.name, polymorphic_path(@parent)
 
-  %span by
-  = link_to @creator.name, user_path(@creator)
+    %span by
+    = link_to @creator.name, user_path(@creator)
 
-.container
-  = @story.body
+.row
+  .container
+    = @story.body
+
+.row{style: 'margin-top: 2em'}
+  = link_to "Add a Comment", new_comment_path(comment: { parent_id: @story.id, parent_type: "Story" }), class: 'btn btn-primary btn-sml'
+

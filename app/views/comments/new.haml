@@ -1,0 +1,24 @@
+- content_for(:header, "New Comment")
+
+.row
+  = form_for @comment, html: { class: 'form-horizontal' } do |f|
+    = f.hidden_field :parent_id
+    = f.hidden_field :parent_type
+
+    .form-group
+
+      .col-sm-offset-2.col-cm-10
+        %p
+          in reply to
+
+          = link_to @parent.name, polymorphic_path(@parent)
+
+    .form-group
+
+      .col-sm-offset-2.col-sm-10
+        = f.text_area :body, class: 'form-control', placeholder: 'Comment'
+
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit nil, class: 'btn btn-default'
