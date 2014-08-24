@@ -1,14 +1,22 @@
 - content_for(:header, "#{@league.name} Home")
 
 - if @league.admin_ids.include?(current_user.id)
-  %p= link_to 'edit league', edit_league_path(@league)
+  .row
+    %p= link_to 'edit league', edit_league_path(@league), class: 'btn btn-default btn-xs'
 
-%div
+- has_team_in_league = @teams.any?{|t| t.owner_id == current_user.id}
+- unless has_team_in_league
+  .row
+    %p
+      %strong You don't yet have a team in this league
+    %p= link_to "Create a team", new_team_path(league_id: @league.id), class: 'btn btn-primary btn-sm'
+
+.row
   %span Admins:
   - for admin in @admins
     = link_to admin.name, user_path(admin)
 
-%div
+.row
   %p Teams:
   - for team in @teams
     - user = @users_by_team_id[team.id]
@@ -16,10 +24,9 @@
     %span owner:
     = link_to user.name, user_path(user)
 
-%div
+.row
   %p Stories:
   - for story in @stories
     = link_to story.title, story_path(story)
     
-%div
-  %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"})
+  %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-success btn-sm'
