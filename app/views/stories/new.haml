@@ -16,6 +16,12 @@
     .col-sm-10
       = f.text_area :body, class: 'form-control', placeholder: 'Body'
 
+  .form-group
+    %label.col-sm-2.control-label Body
+
+    .col-sm-10
+      =f.file_field :asset
+
 
   .form-group
     .col-sm-offset-2.col-sm-10

@@ -1,6 +1,7 @@
 
 class Story
   include Postable
+  include Uploadable
 
   field :title, type: String
 

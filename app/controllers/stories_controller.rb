@@ -45,17 +45,26 @@ class StoriesController < BaseController
   end
 
   def create_story
-    @story.title = story_params[:title]
-    @story.body = story_params[:body]
+    atts = story_params
+
+    if atts[:asset]
+      debugger
+      upload = Upload.create(asset: atts[:asset], parent_id: @story.id, parent_type: "Story")
+
+      @story.upload_ids << upload.id
+    end
+
+    @story.title = atts[:title]
+    @story.body = atts[:body]
     @story.creator_id = current_user.id
-    @story.parent_id = story_params[:parent_id]
-    @story.parent_type = story_params[:parent_type]
+    @story.parent_id = atts[:parent_id]
+    @story.parent_type = atts[:parent_type]
 
     @story.save
   end
 
   def story_params
-    params.require(:story).permit(:title, :body, :parent_id, :parent_type)
+    params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
   end
 
   def get_associated
@@ -77,7 +86,7 @@ class StoriesController < BaseController
   def send_story_email_from(creator)
     for user in @parent.users
       message = StoryNotifier.send_story_email(@story, creator, user, request.host_with_port)
-      message.deliver!
+      message.deliver! if Rails.env.production?
     end
   end
 

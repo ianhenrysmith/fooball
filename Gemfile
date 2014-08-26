@@ -12,18 +12,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',        group: :doc
 
-
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-
 gem "capybara", group: [:development, :test]
 gem "byebug", group: [:development, :test]
 gem "devise"
@@ -43,4 +31,15 @@ gem "moped", github: "mongoid/moped"
 gem "bson_ext"
 gem "mongoid", ">= 2.0.0.beta.19"
 
+# File upload
+gem 'carrierwave'
+gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+gem "mini_magick"
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+
+# Form for multi model
+gem 'nested_form'
+
 gem "rspec-rails", ">= 2.0.1", group: [:development, :test]
+
+
