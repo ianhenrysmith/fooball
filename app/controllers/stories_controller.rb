@@ -76,7 +76,8 @@ class StoriesController < BaseController
 
   def send_story_email_from(creator)
     for user in @parent.users
-      StoryNotifier.send_story_email(@story, creator, user, request.host_with_port)
+      message = StoryNotifier.send_story_email(@story, creator, user, request.host_with_port)
+      message.deliver!
     end
   end
 
