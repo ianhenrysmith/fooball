@@ -24,7 +24,7 @@ class League
   end
 
   def users
-    us = User.for_league(self)
+    User.for_league(self).to_a
   end
 
   def admins

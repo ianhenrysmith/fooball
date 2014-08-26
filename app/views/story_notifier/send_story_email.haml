@@ -1,0 +1,7 @@
+%p
+  = link_to user_url(@story_creator)
+  = "created a story:"
+
+%p=@story.body
+
+%p= link_to @story.title, story_url(@story)

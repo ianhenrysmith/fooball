@@ -53,7 +53,7 @@ class User
   end
 
   def self.for_league(league)
-    find(league.user_ids)
+    where(:id.in => league.user_ids)
   end
 
   def leagues

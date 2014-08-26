@@ -10,6 +10,8 @@ class StoriesController < BaseController
   def create
     create_story
 
+    send_story_email_from(current_user)
+
     redirect_to story_path(@story)
   end
 
@@ -70,6 +72,12 @@ class StoriesController < BaseController
     end
 
     Story.new(atts)
+  end
+
+  def send_story_email_from(creator)
+    for user in @parent.users
+      StoryNotifier.send_story_email(@story, creator, user)
+    end
   end
 
 end
