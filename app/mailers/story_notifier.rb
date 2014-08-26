@@ -10,7 +10,8 @@ class StoryNotifier < ActionMailer::Base
 
     mail( 
       to: @user.email,
-      subject: "#{@story_creator.name} just created a story: #{@story.title}"
+      subject: "#{@story_creator.name} just created a story: #{@story.title}",
+      from: "notifications@fooball.herokuapp.com"
     )
   end
 end

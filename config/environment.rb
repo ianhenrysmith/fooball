@@ -10,6 +10,7 @@ ActionMailer::Base.smtp_settings = {
   :domain => ENV['SMTP_DOMAIN'],
   :address => ENV['SMTP_ADDRESS'],
   :port => ENV['SMTP_PORT'],
-  :authentication => :plain,
-  :enable_starttls_auto => true
+  :authentication => 'login',
+  :enable_starttls_auto => true,
+  :domain => 'fooball.herokuapp.com'
 }
