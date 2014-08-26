@@ -44,6 +44,13 @@ Rails.application.configure do
   # Set to :debug to see everything in the log.
   config.log_level = :debug
 
+  STDOUT.sync = true
+
+  logger = Logger.new(STDOUT)
+  logger.level = 0 # Must be numeric here - 0 :debug, 1 :info, 2 :warn, 3 :error, and 4 :fatal
+
+  Rails.logger = Rails.application.config.logger = logger
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
