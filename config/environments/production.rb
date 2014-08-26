@@ -77,7 +77,7 @@ Rails.application.configure do
     :domain => ENV['SMTP_DOMAIN'],
     :address => ENV['SMTP_ADDRESS'],
     :port => ENV['SMTP_PORT'],
-    :authentication => 'login',
+    :authentication => 'plain',
     :enable_starttls_auto => true
   }
 
