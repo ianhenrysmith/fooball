@@ -48,7 +48,6 @@ class StoriesController < BaseController
     atts = story_params
 
     if atts[:asset]
-      debugger
       upload = Upload.create(asset: atts[:asset], parent_id: @story.id, parent_type: "Story")
 
       @story.upload_ids << upload.id

@@ -1,5 +1,11 @@
 - content_for(:header, @story.title)
 
+- if @story.uploads.present?
+  - url = @story.uploads.first.url
+  .row
+    .container
+      = image_tag url, class: 'img-rounded img-responsive'
+
 .row
   .container
     %span Posted in
