@@ -35,7 +35,12 @@ gem "mongoid", ">= 2.0.0.beta.19"
 gem 'carrierwave'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem "mini_magick"
-gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+
+gem "fog"
+gem "aws-s3",            :require => "aws/s3" #do I need this one?
+gem "aws-sdk"
+# gem 'rack-raw-upload'
+# gem 'jack_up', git: "git://github.com/thoughtbot/jack_up.git", branch: "use_form_data"
 
 # Form for multi model
 gem 'nested_form'
