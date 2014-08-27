@@ -15,8 +15,8 @@ CarrierWave.configure do |config|
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
       region:                'us-east-1'
     }
-    # config.permissions    = 0644
-    # config.asset_host     = "http://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
+    config.permissions    = 0644
+    config.asset_host     = "http://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
     config.fog_directory  = ENV['AWS_BUCKET']
     config.fog_public     = true
 
