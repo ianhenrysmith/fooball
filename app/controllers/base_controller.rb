@@ -15,9 +15,9 @@ class BaseController < ActionController::Base
 
   def process_uploads(atts, resource)
     if atts[:asset]
-      upload = Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
-
-      resource.upload_ids << upload.id
+      resource.add_upload(
+        Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
+      )
     end
 
   end

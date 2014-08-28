@@ -6,16 +6,28 @@ module Uploadable
   end
 
   def uploads
-    @_uploads ||= Upload.where(:id.in => upload_ids).to_a
+    Upload.where(:id.in => upload_ids)
+  end
+  
+  def add_upload(upload)
+    upload_ids << upload.id
   end
 
   def has_uploads?
     upload_ids.present?
   end
-
-  def asset_url
-    if has_uploads?
+  
+  def upload_url
+    @_upload_url ||= if has_uploads?
       uploads.last.url
+    end
+  end
+  
+  def clear_existing_uploads
+    if has_uploads?
+      uploads.delete_all
+      
+      upload_ids = []
     end
   end
 end

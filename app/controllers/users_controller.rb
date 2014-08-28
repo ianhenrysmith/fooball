@@ -16,7 +16,13 @@ class UsersController < BaseController
   end
 
   def update
-    @user.update_attributes(user_params)
+    redirect_to root_path unless @user.id == current_user.id
+
+    @user.attributes = mass_assignable_atts
+
+    process_uploads(asset_params, @user)
+
+    @user.save
 
     render :show
   end
@@ -24,7 +30,15 @@ class UsersController < BaseController
   private
   
   def user_params
-    params.require(:user).permit(:name, :image_url)
+    @_params ||= params.require(:user).permit(:name, :asset)
+  end
+
+  def asset_params
+    user_params.slice(:asset)
+  end
+
+  def mass_assignable_atts
+    user_params.slice(:name)
   end
 
   def find_user

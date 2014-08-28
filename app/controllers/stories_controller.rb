@@ -16,7 +16,9 @@ class StoriesController < BaseController
   end
 
   def update
-    @story.update_attributes(story_params)
+    @story.attributes = mass_assignable_atts
+
+    @story.save
 
     redirect_to story_path(@story)
   end
@@ -45,21 +47,24 @@ class StoriesController < BaseController
   end
 
   def create_story
-    atts = story_params
+    @story.attributes = mass_assignable_atts
 
-    process_uploads(atts, @story)
-
-    @story.title = atts[:title]
-    @story.body = atts[:body]
+    process_uploads(asset_params, @story)
     @story.creator_id = current_user.id
-    @story.parent_id = atts[:parent_id]
-    @story.parent_type = atts[:parent_type]
 
     @story.save
   end
 
   def story_params
-    params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
+    @_params ||= params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
+  end
+
+  def asset_params
+    story_params.slice(:asset)
+  end
+
+  def mass_assignable_atts
+    story_params.slice(:title, :body, :parent_id, :parent_type)
   end
 
   def get_associated
