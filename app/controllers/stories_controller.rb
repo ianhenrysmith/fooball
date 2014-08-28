@@ -56,7 +56,7 @@ class StoriesController < BaseController
   end
 
   def story_params
-    @_params ||= params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
+    @_story_params ||= params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
   end
 
   def asset_params

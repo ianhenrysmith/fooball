@@ -24,13 +24,13 @@ class UsersController < BaseController
 
     @user.save
 
-    render :show
+    redirect_to user_path(@user)
   end
 
   private
   
   def user_params
-    @_params ||= params.require(:user).permit(:name, :asset)
+    @_user_params ||= params.require(:user).permit(:name, :asset)
   end
 
   def asset_params

@@ -10,6 +10,8 @@ module Uploadable
   end
   
   def add_upload(upload)
+    clear_existing_uploads
+    
     upload_ids << upload.id
   end
 
