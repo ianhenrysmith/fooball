@@ -2,6 +2,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Uploadable
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -31,7 +32,6 @@ class User
   field :uid, type: String
 
   field :name, type: String
-  field :image_url, type: String
 
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

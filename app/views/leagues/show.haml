@@ -1,32 +1,33 @@
 - content_for(:header, "#{@league.name} Home")
 
-- if @league.admin_ids.include?(current_user.id)
-  .row
-    %p= link_to 'edit league', edit_league_path(@league), class: 'btn btn-default btn-xs'
-
-- has_team_in_league = @teams.any?{|t| t.owner_id == current_user.id}
-- unless has_team_in_league
-  .row
-    %p
-      %strong You don't yet have a team in this league
-    %p= link_to "Create a team", new_team_path(league_id: @league.id), class: 'btn btn-primary btn-sm'
-
 .row
-  %span Admins:
-  - for admin in @admins
-    = link_to admin.name, user_path(admin)
+  .col-lg-4
+    %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-success btn-sm'
 
-.row
-  %p Teams:
-  - for team in @teams
-    - user = @users_by_team_id[team.id]
-    = link_to team.name, team_path(team)
-    %span owner:
-    = link_to user.name, user_path(user)
+    - for story in @stories
+      = link_to story_path(story), class: 'h4' do
+        - if story.has_uploads?
+          = image_tag story.asset_url, class: 'img-rounded img-responsive'
 
-.row
-  %p Stories:
-  - for story in @stories
-    = link_to story.title, story_path(story)
-    
-  %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-success btn-sm'
+        = story.title
+
+  .col-lg-8
+    - if @league.admin_ids.include?(current_user.id)
+      %p= link_to 'Edit League', edit_league_path(@league), class: 'btn btn-default btn-sm'
+
+    - has_team_in_league = @teams.any?{|t| t.owner_id == current_user.id}
+    - unless has_team_in_league
+      %p
+        %strong You don't yet have a team in this league
+      %p= link_to "Create a team", new_team_path(league_id: @league.id), class: 'btn btn-primary btn-sm'
+
+    %span Admins:
+    - for admin in @admins
+      = link_to admin.name, user_path(admin)
+
+    %p Teams:
+    - for team in @teams
+      - user = @users_by_team_id[team.id]
+      = link_to team.name, team_path(team)
+      %span owner:
+      = link_to user.name, user_path(user)

@@ -13,4 +13,13 @@ class BaseController < ActionController::Base
     redirect_to root unless current_user
   end
 
+  def process_uploads(atts, resource)
+    if atts[:asset]
+      upload = Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
+
+      resource.upload_ids << upload.id
+    end
+
+  end
+
 end

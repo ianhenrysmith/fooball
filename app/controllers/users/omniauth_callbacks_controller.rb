@@ -3,7 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_google_oauth2(request.env["omniauth.auth"], current_user)
 
     if @user.persisted?
-      flash[:notice] = 'Authenticated'
+      flash[:notice] = "Ok you're logged in now."
       sign_in_and_redirect @user, event: :authentication
     else
       session["devise.google_data"] = request.env["omniauth.auth"]

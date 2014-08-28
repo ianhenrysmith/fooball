@@ -47,11 +47,7 @@ class StoriesController < BaseController
   def create_story
     atts = story_params
 
-    if atts[:asset]
-      upload = Upload.create(asset: atts[:asset], parent_id: @story.id, parent_type: "Story")
-
-      @story.upload_ids << upload.id
-    end
+    process_uploads(atts, @story)
 
     @story.title = atts[:title]
     @story.body = atts[:body]
