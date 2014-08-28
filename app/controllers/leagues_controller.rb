@@ -19,7 +19,13 @@ class LeaguesController < BaseController
   end
 
   def update
-    @league.update_attributes(league_params)
+    redirect_to root_path unless @league.admin_ids.include?(current_user.id)
+
+    @league.attributes = mass_assignable_atts
+
+    process_uploads(asset_params, @league)
+
+    @league.save
 
     redirect_to league_path(@league)
   end
@@ -44,7 +50,15 @@ class LeaguesController < BaseController
   end
 
   def league_params
-    params.require(:league).permit(:name)
+    params.require(:league).permit(:name, :asset)
+  end
+
+  def asset_params
+    league_params.slice(:asset)
+  end
+
+  def mass_assignable_atts
+    league_params.slice(:name)
   end
 
   def get_league

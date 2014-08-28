@@ -1,28 +1,35 @@
-= link_to "back to league", league_path(@league)
+= link_to "<< Back to League", league_path(@league), class: 'btn-xs btn-default btn'
 
-= form_for @league do |f|
-  %table
-    %tr
-      %td name:
-      %td
-        = f.text_field :name
+= form_for @league, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    %label.col-sm-2.control-label Name
 
-    %tr
-      %td Admins:
-      %td
-        - for admin in @admins
-          = link_to admin.name, user_path(admin)
+    .col-sm-10
+      = f.text_field :name, class: 'form-control', placeholder: 'Name'
 
-    %tr
-      %td Teams:
-      %td
-        - for team in @teams
-          - user = @users_by_team_id[team.id]
-          = link_to team.name, team_path(team)
-          %span owner:
-          = link_to user.name, user_path(user)
+  .form-group
+    %label.col-sm-2.control-label Admins
 
-    %tr
-      %td
-      %td
-        = f.submit
+    .col-sm-10
+      - for admin in @admins
+        = link_to admin.name, user_path(admin)
+
+  .form-group
+    %label.col-sm-2.control-label Teams
+
+    .col-sm-10
+      - for team in @teams
+        - user = @users_by_team_id[team.id]
+        = link_to team.name, team_path(team)
+        %span owner:
+        = link_to user.name, user_path(user)
+
+  .form-group
+    %label.col-sm-2.control-label Logo
+
+    .col-sm-10
+      =f.file_field :asset
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "Save", class: 'btn btn-primary'

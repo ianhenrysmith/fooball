@@ -1,6 +1,6 @@
 - content_for(:header, "Editing Your Profile")
 
-%p= link_to '<< Back to Profile', user_path(@user), class: 'btn-xs btn-default btn'
+= link_to '<< Back to Profile', user_path(@user), class: 'btn-xs btn-default btn'
 
 = form_for @user, html: { class: 'form-horizontal' } do |f|
   
