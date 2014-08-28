@@ -3,6 +3,9 @@ class UsersController < BaseController
   before_filter :find_user, only: [:show, :edit, :update]
   before_filter :get_associated, only: [:show, :edit, :update]
 
+  RESOURCE_NAME = :user
+  WHITELISTED_PARAMS = [:name]
+
   def index
   
   end
@@ -28,18 +31,6 @@ class UsersController < BaseController
   end
 
   private
-  
-  def user_params
-    @_user_params ||= params.require(:user).permit(:name, :asset)
-  end
-
-  def asset_params
-    user_params.slice(:asset)
-  end
-
-  def mass_assignable_atts
-    user_params.slice(:name)
-  end
 
   def find_user
     @user = User.find(params[:id])

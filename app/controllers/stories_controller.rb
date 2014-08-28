@@ -3,6 +3,9 @@ class StoriesController < BaseController
   before_filter :find_story, only: [:new, :show, :create, :edit, :update]
   before_filter :get_associated, only: [:show, :edit, :update, :create]
 
+  RESOURCE_NAME = :story
+  WHITELISTED_PARAMS = [:title, :body, :parent_id, :parent_type]
+
   def new
 
   end
@@ -55,18 +58,6 @@ class StoriesController < BaseController
     @story.save
   end
 
-  def story_params
-    @_story_params ||= params.require(:story).permit(:title, :body, :parent_id, :parent_type, :asset)
-  end
-
-  def asset_params
-    story_params.slice(:asset)
-  end
-
-  def mass_assignable_atts
-    story_params.slice(:title, :body, :parent_id, :parent_type)
-  end
-
   def get_associated
     @parent ||= @story.parent
     @creator ||= @story.creator
@@ -74,9 +65,9 @@ class StoriesController < BaseController
 
   def new_story
     atts = {}
-    if story_params
-      atts = { parent_type: story_params[:parent_type],
-               parent_id:   story_params[:parent_id],
+    if allowed_params
+      atts = { parent_type: allowed_params[:parent_type],
+               parent_id:   allowed_params[:parent_id],
                creator_id:  current_user.id }
     end
 

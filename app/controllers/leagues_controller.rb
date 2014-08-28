@@ -3,6 +3,9 @@ class LeaguesController < BaseController
   before_filter :get_league, only: [:show, :edit, :new, :update, :create]
   before_filter :get_associated, only: [:show, :edit]
 
+  RESOURCE_NAME = :league
+  WHITELISTED_PARAMS = [:name]
+
   def index
     @leagues = League.limit(100).to_a
 
@@ -44,21 +47,10 @@ class LeaguesController < BaseController
   private
 
   def create_league
-    @league.name = league_params[:name]
+    # could use `instance_variable_set("@#{:smoo}", 8)` to dry up more
+    @league.attributes = mass_assignable_atts
 
     @league.save
-  end
-
-  def league_params
-    params.require(:league).permit(:name, :asset)
-  end
-
-  def asset_params
-    league_params.slice(:asset)
-  end
-
-  def mass_assignable_atts
-    league_params.slice(:name)
   end
 
   def get_league
