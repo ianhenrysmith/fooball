@@ -7,9 +7,6 @@ class BaseController < ActionController::Base
 
   before_filter :redirect_unless_signed_in
 
-  WHITELISTED_PARAMS = []
-  RESOURCE_NAME = :smoo
-
   private
 
   def redirect_unless_signed_in
@@ -26,7 +23,7 @@ class BaseController < ActionController::Base
   end
 
   def allowed_params
-    @_allowed_params ||= params.require(RESOURCE_NAME).permit(WHITELISTED_PARAMS << :asset)
+    @_allowed_params ||= params.require(_resource_name).permit(*_whitelisted_params, :asset)
   end
 
   def asset_params
@@ -34,7 +31,18 @@ class BaseController < ActionController::Base
   end
 
   def mass_assignable_atts
-    allowed_params.slice(WHITELISTED_PARAMS)
+    allowed_params.slice(*_whitelisted_params)
+  end
+
+
+  # -------------------------
+
+  def _resource_name
+    self.class::RESOURCE_NAME
+  end
+
+  def _whitelisted_params
+    self.class::WHITELISTED_PARAMS
   end
 
 end
