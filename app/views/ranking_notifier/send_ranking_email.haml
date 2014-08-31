@@ -1,5 +1,5 @@
 %p
   = link_to @ranking_creator.name, user_url(@ranking_creator)
-  = "created rankings for week #{@ranking.week} in #{link_to @league.name, league_url(@league)}"
+  != "created rankings for week #{@ranking.week} in #{link_to @league.name, league_url(@league)}"
 
 %p= link_to "You can see them here", ranking_url(@ranking.id)
