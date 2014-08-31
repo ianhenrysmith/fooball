@@ -2,6 +2,8 @@
 
 .row
   .col-lg-10.col-lg-offset-1
+    = link_to "Back to League", league_path(@league), class: 'btn-xs btn-default btn', style: 'margin-bottom: 2em'
+
     %table.table.table-striped
       - @ranking.team_rankings.each do |rank, rank_atts|
         - team = @teams.detect{ |t| t.id.to_s == rank_atts[:team_id] }

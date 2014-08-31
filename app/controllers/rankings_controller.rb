@@ -2,7 +2,7 @@
 class RankingsController < BaseController
 
   before_filter :get_ranking, only: [:show, :edit, :new, :update, :create]
-  before_filter :get_associated, only: [:show, :edit, :new]
+  before_filter :get_associated, only: [:show, :edit, :new, :create]
 
   RESOURCE_NAME = :ranking
   WHITELISTED_PARAMS = [:league_id, :created_at_date, :week, :body, :title]
@@ -39,7 +39,7 @@ class RankingsController < BaseController
   def create_ranking
     @ranking.attributes = mass_assignable_atts
 
-    # send_ranking_email_from(current_user)
+    send_ranking_email_from(current_user)
 
     @ranking.save
   end
@@ -67,6 +67,13 @@ class RankingsController < BaseController
     @users ||= @league.users
     @teams ||= @league.teams
     @users_by_team_id ||= get_users_by_team_id
+  end
+
+  def send_ranking_email_from(creator)
+    for user in @users
+      message = RankingNotifier.send_ranking_email(@ranking, creator, user, @league)
+      message.deliver! if Rails.env.production?
+    end
   end
 
 end

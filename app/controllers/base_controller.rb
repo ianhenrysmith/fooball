@@ -7,6 +7,8 @@ class BaseController < ActionController::Base
 
   before_filter :redirect_unless_signed_in
 
+  DEEP_PARAMS = []
+
   private
 
   def redirect_unless_signed_in
@@ -54,11 +56,11 @@ class BaseController < ActionController::Base
   end
 
   def _whitelisted_params
-    self.class::WHITELISTED_PARAMS || {}
+    self.class::WHITELISTED_PARAMS
   end
 
   def _deep_params
-    self.class::DEEP_PARAMS || []
+    self.class::DEEP_PARAMS
   end
 
 end
