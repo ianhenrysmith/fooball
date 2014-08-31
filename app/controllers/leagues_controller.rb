@@ -22,7 +22,7 @@ class LeaguesController < BaseController
   end
 
   def update
-    redirect_to root_path unless @league.admin_ids.include?(current_user.id)
+    redirect_to root_path unless @league.admin?(current_user)
 
     @league.attributes = mass_assignable_atts
 
@@ -38,8 +38,6 @@ class LeaguesController < BaseController
 
   def create
     create_league
-
-    get_associated
 
     redirect_to league_path(@league)
   end
@@ -67,9 +65,9 @@ class LeaguesController < BaseController
 
   def get_associated
     @users ||= @league.users
-    @admins ||= @users.select{|u| @league.admin_ids.include?(u.id)}
+    @admins ||= @users.select{|u| @league.admin?(u)}
     @teams ||= @league.teams
-    @users_by_team_id ||= Hash[@teams.map {|t| [t.id, @users.detect{|u| u.id == t.owner_id}]}]
+    @users_by_team_id ||= get_users_by_team_id
   end
 
 end

@@ -1,0 +1,24 @@
+- content_for(:header, "New Ranking (Week #{@ranking.week})")
+
+.row
+  = form_for @ranking, html: { class: 'form-horizontal' } do |f|
+    = f.hidden_field :league_id
+    = f.hidden_field :week
+    = f.hidden_field :created_at_date
+
+    - @teams.each_with_index do |team, i|
+      - rank = i + 1
+
+      .form-group
+        .col-sm-offset-2.col-sm-1
+          %p= rank
+
+        .col-sm-2
+          = select_tag "ranking[team_rankings][#{rank}][team_id]", options_from_collection_for_select(@teams, "id", "name")
+
+        .col-sm-7
+          = text_area_tag "ranking[team_rankings][#{rank}][comment]", "", style: "width: 400px"
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit nil, class: 'btn btn-default'

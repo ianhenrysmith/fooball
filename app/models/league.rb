@@ -37,4 +37,7 @@ class League
     Team.where(:id.in => team_ids).to_a
   end
 
+  def admin?(user)
+    admin_ids.include?(user.id)
+  end
 end

@@ -5,6 +5,7 @@ module Postable
     include Mongoid::Document
     include Mongoid::Timestamps
     
+    field :title, type: String
     field :body, type: String
     field :creator_id, type: BSON::ObjectId
     field :parent_id, type: BSON::ObjectId
@@ -21,6 +22,10 @@ module Postable
     
     def parent
       parent_type.constantize.find(parent_id)
+    end
+
+    def name
+      title
     end
     
   end

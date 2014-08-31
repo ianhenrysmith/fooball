@@ -23,7 +23,7 @@ class BaseController < ActionController::Base
   end
 
   def allowed_params
-    @_allowed_params ||= params.require(_resource_name).permit(*_whitelisted_params, :asset)
+    @_allowed_params ||= _add_deep_params( params.require(_resource_name).permit(*_whitelisted_params, :asset) )
   end
 
   def asset_params
@@ -31,18 +31,34 @@ class BaseController < ActionController::Base
   end
 
   def mass_assignable_atts
-    allowed_params.slice(*_whitelisted_params)
+    _add_deep_params(allowed_params.slice(*_whitelisted_params))
+  end
+
+  def get_users_by_team_id
+    Hash[@teams.map {|t| [t.id, @users.detect{|u| u.id == t.owner_id}]}]
   end
 
 
   # -------------------------
 
+  def _add_deep_params(atts)
+    for att in _deep_params
+      atts[att] = params[_resource_name][att]
+    end
+
+    atts
+  end
+
   def _resource_name
-    self.class::RESOURCE_NAME
+    self.class::RESOURCE_NAME || :smoo
   end
 
   def _whitelisted_params
-    self.class::WHITELISTED_PARAMS
+    self.class::WHITELISTED_PARAMS || {}
+  end
+
+  def _deep_params
+    self.class::DEEP_PARAMS || []
   end
 
 end

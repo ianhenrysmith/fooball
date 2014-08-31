@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :teams
   resources :stories
   resources :comments
+  resources :rankings
 
   # You can have the root of your site routed with "root"
   root to: "application#index"
