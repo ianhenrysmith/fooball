@@ -1,7 +1,7 @@
 
 CarrierWave.configure do |config|
 
-  if Rails.env.development?
+  if Rails.env.development? || Rails.env.test?
     config.storage = :file
     config.root = Rails.root.join('tmp')
     config.cache_dir = "uploads"
