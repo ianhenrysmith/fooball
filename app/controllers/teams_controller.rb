@@ -18,7 +18,7 @@ class TeamsController < BaseController
   def update
     @team.update_attributes(team_params)
 
-    render :show
+    redirect_to team_path(@team)
   end
 
   def create
