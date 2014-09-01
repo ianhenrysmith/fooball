@@ -32,6 +32,7 @@ class LeaguesController < BaseController
   end
 
   def new
+
   end
 
   def create

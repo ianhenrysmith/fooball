@@ -29,7 +29,7 @@ class TeamsController < BaseController
     if update_resource
       get_associated
 
-      add_team_to_league
+      @league.add_team!(@team)
     end
 
     flash.notice = "Team Created"
@@ -38,13 +38,6 @@ class TeamsController < BaseController
   end
 
   private
-
-  def add_team_to_league
-    @league.user_ids << @team.owner_id
-    @league.team_ids << @team.id
-
-    @league.save
-  end
 
   def get_team
     if params[:id]

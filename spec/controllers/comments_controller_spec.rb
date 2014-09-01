@@ -20,8 +20,6 @@ RSpec.describe CommentsController, type: :controller do
 
   describe "POST create" do
     it "creates comment" do
-      request.host = "localhost:3000"
-
       post :create, { comment: { body: "smoo", parent_id: parent.id, parent_type: "Story", creator_id: user.id }}
 
       expect(Comment.count).to eql(1)

@@ -18,7 +18,7 @@ class League
   end
 
   def rankings
-    Ranking.where(league_id: id)
+    Ranking.where(league_id: id).to_a
   end
 
   def creator
@@ -39,6 +39,16 @@ class League
 
   def teams
     Team.where(:id.in => team_ids).to_a
+  end
+
+  def add_team(team)
+    user_ids << team.owner_id
+    team_ids << team.id
+  end
+
+  def add_team!(team)
+    add_team(team)
+    save
   end
 
   def admin?(user)
