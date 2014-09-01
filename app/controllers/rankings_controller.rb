@@ -9,7 +9,7 @@ class RankingsController < BaseController
   DEEP_PARAMS = [:team_rankings]
 
   def index
-
+    # not used
   end
 
   def show
@@ -21,7 +21,7 @@ class RankingsController < BaseController
   end
 
   def update
-
+    # not used
   end
 
   def create
@@ -33,7 +33,7 @@ class RankingsController < BaseController
   end
 
   def edit
-
+    # not used
   end
 
   private
@@ -65,8 +65,8 @@ class RankingsController < BaseController
 
   def send_ranking_email_from(creator)
     for user in @users
-      message = RankingNotifier.send_ranking_email(@ranking, creator, user, @league)
-      message.deliver! if Rails.env.production?
+      @message = RankingNotifier.send_ranking_email(@ranking, creator, user, @league)
+      @message.deliver! if Rails.env.production?
     end
   end
 
