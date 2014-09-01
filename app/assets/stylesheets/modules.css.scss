@@ -1,3 +1,9 @@
+.container {
+  &.main {
+    min-height: 500px
+  }
+}
+
 .img-preview {
   max-height: 240px;
   overflow: hidden;
