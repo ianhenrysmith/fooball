@@ -1,4 +1,4 @@
-LEAGUES
+- content_for(:header, "Joining A League")
 
 - for league in @leagues
   - teams = @teams.select{|t| t.league_id == league.id}

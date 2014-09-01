@@ -28,7 +28,9 @@ class TeamsController < BaseController
       add_team_to_league
     end
 
-    render :show
+    flash.notice = "Team Created"
+
+    redirect_to league_path(@league)
   end
 
   private
