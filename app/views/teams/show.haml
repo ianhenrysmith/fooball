@@ -1,11 +1,17 @@
 - content_for(:header, @team.name)
 
-%p 
-  %span owner:
+.col-lg-4
+  %p= link_to "Back to League", league_path(@league), class: "btn btn-default btn-xs"
+
+  - if current_user.id == @team.owner_id
+    %p= link_to "Edit Team", edit_team_path(@team), class: "btn btn-xs btn-primary"
+
+  - if @team.has_uploads?
+    = image_tag @team.upload_url, class: 'img-rounded img-responsive'
+
+.col-lg-8
+  %h4 Owner
   = link_to @owner.name, user_path(@owner)
 
-%p
-  %span league:
+  %h4 League
   = link_to @league.name, league_path(@league)
-
-%p= link_to "edit", edit_team_path(@team)

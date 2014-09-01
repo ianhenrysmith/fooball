@@ -1,21 +1,20 @@
 - content_for(:header, @user.name)
 
-.row
-  .col-lg-4
-    - if current_user.id == @user.id
-      = link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-default btn-xs btn-primary"
+.col-lg-4
+  - if current_user.id == @user.id
+    %p= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-default btn-xs btn-primary"
 
-    - if @user.has_uploads?
-      = image_tag @user.upload_url, class: 'img-rounded img-responsive'
+  - if @user.has_uploads?
+    = image_tag @user.upload_url, class: 'img-rounded img-responsive'
 
-  .col-lg-8
-    - if @leagues
-      %p Leagues:
-      - for league in @leagues
-        %p= link_to league.name, league_path(league)
+.col-lg-8
+  - if @leagues
+    %h4 Leagues
+    - for league in @leagues
+      %p= link_to league.name, league_path(league)
 
 
-    - if @teams
-      %p Teams:
-      - for team in @teams
-        %p= link_to team.name, team_path(team)
+  - if @teams
+    %h4 Teams
+    - for team in @teams
+      %p= link_to team.name, team_path(team)
