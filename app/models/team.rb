@@ -3,6 +3,8 @@ class Team
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include Uploadable
+
 
   field :name, type: String
   field :image_url, type: String

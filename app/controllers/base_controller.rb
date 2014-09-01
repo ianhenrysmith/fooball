@@ -28,7 +28,7 @@ class BaseController < ActionController::Base
     _resource.attributes = mass_assignable_atts
 
     if _process_assets?
-      _process_assets(resource)
+      _process_assets
     end
 
     _resource.save
@@ -54,7 +54,7 @@ class BaseController < ActionController::Base
   end
 
   def _resource_name
-    self.class::RESOURCE_NAME || :smoo
+    self.class::RESOURCE_NAME
   end
 
   def _whitelisted_params
@@ -65,16 +65,21 @@ class BaseController < ActionController::Base
     self.class::DEEP_PARAMS
   end
 
+  def _asset_params
+    _allowed_params.slice(:asset)
+  end
+
+
   def _process_assets? # TODO implement this junk
     self.class::PROCESS_ASSETS
   end
 
-  def _process_assets(resource)
+  def _process_assets
     atts = _asset_params
 
     if atts[:asset]
-      resource.add_upload(
-        Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
+      _resource.add_upload(
+        Upload.create(asset: atts[:asset], parent_id: _resource.id, parent_type: _resource.class.to_s)
       )
     end
 
