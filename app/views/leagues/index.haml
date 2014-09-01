@@ -1,17 +1,18 @@
 - content_for(:header, "Joining A League")
 
-- for league in @leagues
-  - teams = @teams.select{|t| t.league_id == league.id}
-  - has_team_in_league = teams.any?{|t| t.owner_id == current_user.id}
-  - is_admin_of_league = league.admin?(current_user)
+.col-lg-6.col-lg-offset-3
+  - for league in @leagues
+    - teams = @teams.select{|t| t.league_id == league.id}
+    - has_team_in_league = teams.any?{|t| t.owner_id == current_user.id}
+    - is_admin_of_league = league.admin?(current_user)
 
-  %p
-    - if has_team_in_league
-      = link_to league.name, league_path(league)
-      %span (you belong to this league)
-    - else
-      %span= league.name
-      = link_to "Create a team in this league", new_team_path(league_id: league.id)
+    %p{style: 'margin-bottom: 2em'}
+      - if has_team_in_league
+        = link_to league.name, league_path(league)
+        %span (you belong to this league)
+      - else
+        %span= league.name
+        = link_to "Join", new_team_path(league_id: league.id), class: 'btn btn-md btn-primary'
 
-    - if is_admin_of_league
-      %span (you're an admin of this league)
+      - if is_admin_of_league
+        %span (you're an admin of this league)

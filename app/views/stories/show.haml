@@ -1,31 +1,33 @@
 - content_for(:header, @story.title)
 
 - if @parent.is_a?(League)
-  = link_to "Back to League", league_path(@parent), class: 'btn-xs btn-default btn', style: 'margin-bottom: 2em'
+  .col-lg-12
+    = link_to "Back to League", league_path(@parent), class: 'btn-xs btn-default btn', style: 'margin-bottom: 2em'
 
-- if @story.has_uploads?
-  = image_tag @story.upload_url, class: 'img-rounded img-responsive'
+.col-lg-6.col-lg-offset-3
+  - if @story.has_uploads?
+    = image_tag @story.upload_url, class: 'img-rounded img-responsive'
 
-%p{ style: 'margin-top: 1em'}
-  %span Posted in
-  = link_to @parent.name, polymorphic_path(@parent)
+  %p{ style: 'margin-top: 1em'}
+    %span Posted in
+    = link_to @parent.name, polymorphic_path(@parent)
 
-  %span by
-  = link_to @creator.name, user_path(@creator)
+    %span by
+    = link_to @creator.name, user_path(@creator)
 
 
-= @story.body
+  = @story.body
 
-%p{style: 'margin-top: 2em'}
-  = link_to "Add a Comment", new_comment_path(comment: { parent_id: @story.id, parent_type: "Story" }), class: 'btn btn-primary btn-sml'
+  %p{style: 'margin-top: 2em'}
+    = link_to "Add a Comment", new_comment_path(comment: { parent_id: @story.id, parent_type: "Story" }), class: 'btn btn-primary btn-sml'
 
-- if @comments.present?
-  .container
-    .row{style: 'margin-top: 2em'}
-      %h4= pluralize(@comments.count, "Reply")
+  - if @comments.present?
+    .container
+      .row{style: 'margin-top: 2em'}
+        %h4= pluralize(@comments.count, "Reply")
 
-      - for comment in @comments
-        - comment_creator = @users.detect{ |u| u.id == comment.creator_id }
-        %hr
-        = render partial: "shared/comment_stub", locals: { comment: comment, user: comment_creator }
+        - for comment in @comments
+          - comment_creator = @users.detect{ |u| u.id == comment.creator_id }
+          %hr
+          = render partial: "shared/comment_stub", locals: { comment: comment, user: comment_creator }
 
