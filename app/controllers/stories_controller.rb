@@ -20,6 +20,7 @@ class StoriesController < BaseController
   end
 
   def update
+    # not used
     update_resource
 
     redirect_to story_path(@story)
@@ -35,7 +36,7 @@ class StoriesController < BaseController
   end
 
   def edit
-
+    # not used
   end
 
   private

@@ -18,7 +18,7 @@
     - if !has_team_in_league
       %p
         %strong You don't yet have a team in this league
-      %p= link_to "Create a team", new_team_path(league_id: @league.id), class: 'btn btn-primary btn-sm'
+      %p= link_to "Create a team", new_team_path(team: { owner_id: current_user.id, league_id: @league.id }), class: 'btn btn-primary btn-sm'
 
     - else
       - if @rankings.present?

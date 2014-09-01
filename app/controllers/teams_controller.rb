@@ -53,7 +53,7 @@ class TeamsController < BaseController
   end
 
   def new_team
-    Team.new(owner_id: current_user.id, league_id: params[:league_id])
+    Team.new(mass_assignable_atts)
   end
 
 end
