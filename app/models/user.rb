@@ -33,6 +33,8 @@ class User
 
   field :name, type: String
 
+  field :image_url, type: String
+
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     # access_token.info:
