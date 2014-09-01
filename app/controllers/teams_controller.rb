@@ -3,6 +3,10 @@ class TeamsController < BaseController
   before_filter :get_team, only: [:show, :edit, :new, :update, :create]
   before_filter :get_associated, only: [:show, :update]
 
+  RESOURCE_NAME = :team
+  WHITELISTED_PARAMS = [:name, :owner_id, :league_id]
+  PROCESS_ASSETS = true
+
   def index
   
   end
@@ -16,13 +20,13 @@ class TeamsController < BaseController
   end
 
   def update
-    @team.update_attributes(team_params)
+    update_resource
 
     redirect_to team_path(@team)
   end
 
   def create
-    if create_team
+    if update_resource
       get_associated
 
       add_team_to_league
@@ -35,23 +39,11 @@ class TeamsController < BaseController
 
   private
 
-  def create_team
-    @team.name = team_params[:name]
-    @team.league_id = team_params[:league_id]
-    @team.owner_id = current_user.id
-
-    @team.save
-  end
-
   def add_team_to_league
     @league.user_ids << @team.owner_id
     @league.team_ids << @team.id
 
     @league.save
-  end
-
-  def team_params
-    params.require(:team).permit(:name, :league_id)
   end
 
   def get_team

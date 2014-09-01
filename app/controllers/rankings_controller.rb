@@ -25,7 +25,9 @@ class RankingsController < BaseController
   end
 
   def create
-    create_ranking
+    update_resource
+
+    send_ranking_email_from(current_user)
 
     redirect_to(@ranking)
   end
@@ -35,14 +37,6 @@ class RankingsController < BaseController
   end
 
   private
-
-  def create_ranking
-    @ranking.attributes = mass_assignable_atts
-
-    send_ranking_email_from(current_user)
-
-    @ranking.save
-  end
 
   def get_ranking
     if params[:id]
@@ -57,7 +51,7 @@ class RankingsController < BaseController
 
     ranking = Ranking.new(atts.merge(mass_assignable_atts))
 
-    ranking.set_created_at_date(Date.today)
+    ranking.set_created_at_date(Date.today) # sets week, might want to just to that on Ranking#init
 
     ranking
   end

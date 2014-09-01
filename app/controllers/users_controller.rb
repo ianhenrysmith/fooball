@@ -5,6 +5,9 @@ class UsersController < BaseController
 
   RESOURCE_NAME = :user
   WHITELISTED_PARAMS = [:name]
+  PROCESS_ASSETS = true
+
+  # users are created via OmniauthCallbacksController
 
   def index
   
@@ -21,11 +24,7 @@ class UsersController < BaseController
   def update
     redirect_to root_path unless @user.id == current_user.id
 
-    @user.attributes = mass_assignable_atts
-
-    process_uploads(asset_params, @user)
-
-    @user.save
+    update_resource
 
     redirect_to user_path(@user)
   end

@@ -5,21 +5,20 @@ class TopicsController < BaseController
 
   RESOURCE_NAME = :topic
   WHITELISTED_PARAMS = [:title, :body, :parent_id, :parent_type]
+  PROCESS_ASSETS = true
 
   def new
 
   end
 
   def create
-    create_topic
+    update_resource
 
     redirect_to topic_path(@topic)
   end
 
   def update
-    @topic.attributes = mass_assignable_atts
-
-    @topic.save
+    update_resource
 
     redirect_to topic_path(@topic)
   end
@@ -45,14 +44,6 @@ class TopicsController < BaseController
     end
 
     @topic ||= new_topic
-  end
-
-  def create_topic
-    @topic.attributes = mass_assignable_atts
-
-    process_uploads(asset_params, @topic)
-
-    @topic.save
   end
 
   def get_associated

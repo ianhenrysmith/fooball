@@ -11,7 +11,7 @@ class CommentsController < BaseController
   end
 
   def create
-    create_comment
+    update_resource
 
     flash.notice = "Comment created"
 
@@ -27,10 +27,6 @@ class CommentsController < BaseController
   end
 
   private
-
-  def create_comment
-    @comment.update_attributes(mass_assignable_atts)
-  end
 
   def get_comment
     @comment ||= new_comment

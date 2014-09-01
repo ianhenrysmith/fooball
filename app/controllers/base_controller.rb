@@ -8,24 +8,12 @@ class BaseController < ActionController::Base
   before_filter :redirect_unless_signed_in
 
   DEEP_PARAMS = []
+  PROCESS_ASSETS = false
 
   private
 
   def redirect_unless_signed_in
     redirect_to root unless current_user
-  end
-
-  def process_uploads(atts, resource)
-    if atts[:asset]
-      resource.add_upload(
-        Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
-      )
-    end
-
-  end
-
-  def asset_params
-    _allowed_params.slice(:asset)
   end
 
   def mass_assignable_atts
@@ -36,8 +24,22 @@ class BaseController < ActionController::Base
     Hash[@teams.map {|t| [t.id, @users.detect{|u| u.id == t.owner_id}]}]
   end
 
+  def update_resource
+    _resource.attributes = mass_assignable_atts
+
+    if _process_assets?
+      _process_assets(resource)
+    end
+
+    _resource.save
+  end
+
 
   # ------------------------- plz not call outside of base class
+
+  def _resource
+    self.instance_variable_get("@#{_resource_name}")
+  end
 
   def _allowed_params
     @_allowed_params ||= _add_deep_params( params.require(_resource_name).permit(*_whitelisted_params, :asset) )
@@ -61,6 +63,21 @@ class BaseController < ActionController::Base
 
   def _deep_params
     self.class::DEEP_PARAMS
+  end
+
+  def _process_assets? # TODO implement this junk
+    self.class::PROCESS_ASSETS
+  end
+
+  def _process_assets(resource)
+    atts = _asset_params
+
+    if atts[:asset]
+      resource.add_upload(
+        Upload.create(asset: atts[:asset], parent_id: resource.id, parent_type: resource.class.to_s)
+      )
+    end
+
   end
 
 end

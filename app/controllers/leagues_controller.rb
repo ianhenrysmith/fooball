@@ -5,6 +5,7 @@ class LeaguesController < BaseController
 
   RESOURCE_NAME = :league
   WHITELISTED_PARAMS = [:name]
+  PROCESS_ASSETS = true
 
   def index
     @leagues = League.limit(100).to_a
@@ -25,11 +26,7 @@ class LeaguesController < BaseController
   def update
     redirect_to root_path unless @league.admin?(current_user)
 
-    @league.attributes = mass_assignable_atts
-
-    process_uploads(asset_params, @league)
-
-    @league.save
+    update_resource
 
     redirect_to league_path(@league)
   end
@@ -38,12 +35,7 @@ class LeaguesController < BaseController
   end
 
   def create
-    # could use `instance_variable_set("@#{:smoo}", 8)` to dry up more
-    @league.attributes = mass_assignable_atts
-
-    process_uploads(asset_params, @league)
-
-    @league.save
+    update_resource
 
     redirect_to league_path(@league)
   end

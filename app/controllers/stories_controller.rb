@@ -5,13 +5,14 @@ class StoriesController < BaseController
 
   RESOURCE_NAME = :story
   WHITELISTED_PARAMS = [:title, :body, :parent_id, :parent_type]
+  PROCESS_ASSETS = true
 
   def new
 
   end
 
   def create
-    create_story
+    update_resource
 
     send_story_email_from(current_user)
 
@@ -19,9 +20,7 @@ class StoriesController < BaseController
   end
 
   def update
-    @story.attributes = mass_assignable_atts
-
-    @story.save
+    update_resource
 
     redirect_to story_path(@story)
   end
@@ -47,14 +46,6 @@ class StoriesController < BaseController
     end
 
     @story ||= new_story
-  end
-
-  def create_story
-    @story.attributes = mass_assignable_atts
-
-    process_uploads(asset_params, @story)
-    
-    @story.save
   end
 
   def get_associated
