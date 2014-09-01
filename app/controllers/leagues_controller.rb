@@ -15,6 +15,7 @@ class LeaguesController < BaseController
 
   def show
     @stories = Story.for_parent(@league).order_by(:created_at.desc).to_a
+    @topics = Topic.for_parent(@league).order_by(:updated_at.desc).to_a
   end
 
   def edit

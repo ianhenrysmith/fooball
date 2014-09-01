@@ -2,9 +2,9 @@
 
 .row
   .col-lg-4
-    %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-success btn-sm'
-
     - if @league.admin?(current_user)
+      %p= link_to "New Story", new_story_path(story: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-success btn-sm'
+
       %p= link_to "New Ranking", new_ranking_path(ranking: {league_id: @league.id}), class: 'btn btn-primary btn-sm'
 
       %p= link_to 'Edit League', edit_league_path(@league), class: 'btn btn-default btn-sm'
@@ -26,3 +26,12 @@
           %span.h3 Current Power Rankings
           = link_to("(view)", ranking_path(ranking))
         = render partial: 'rankings/ranking', locals: { ranking: ranking, preview: true }
+
+      %h3 Threads
+      %p= link_to "New Thread", new_topic_path(topic: {parent_id: @league.id, parent_type: "League"}), class: 'btn btn-info btn-sm'
+
+      - if @topics
+        - for thread in @topics
+          %p= link_to thread.name, topic_path(thread)
+      - else
+        %p (No Threads Yet.)

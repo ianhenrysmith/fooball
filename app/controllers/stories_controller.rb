@@ -53,8 +53,7 @@ class StoriesController < BaseController
     @story.attributes = mass_assignable_atts
 
     process_uploads(asset_params, @story)
-    @story.creator_id = current_user.id
-
+    
     @story.save
   end
 

@@ -1,0 +1,33 @@
+- content_for(:header, @topic.title)
+
+- if @parent.is_a?(League)
+  = link_to "Back to League", league_path(@parent), class: 'btn-xs btn-default btn', style: 'margin-bottom: 2em'
+
+.row
+  .col-lg-4
+    - if @topic.has_uploads?
+      = image_tag @topic.upload_url, class: 'img-rounded img-responsive'
+
+    %p{ style: 'margin-top: 1em'}
+      %span Posted in
+      = link_to @parent.name, polymorphic_path(@parent)
+
+      %span by
+      = link_to @creator.name, user_path(@creator)
+
+  .col-lg-8
+    = @topic.body
+
+    %p{style: 'margin-top: 2em'}
+      = link_to "Add a Reply", new_comment_path(comment: { parent_id: @topic.id, parent_type: "Topic" }), class: 'btn btn-primary btn-sml'
+
+    - if @comments.present?
+      .container
+        .row{style: 'margin-top: 2em'}
+          %h4= pluralize(@comments.count, "Reply")
+
+          - for comment in @comments
+            - comment_creator = @users.detect{ |u| u.id == comment.creator_id }
+            %hr
+            = render partial: "shared/comment_stub", locals: { comment: comment, user: comment_creator }
+
