@@ -6,7 +6,8 @@
       .col-lg-12
         - if story.has_uploads?
           = link_to story_path(story) do
-            = image_tag story.upload_url, class: 'img-rounded img-responsive img-preview'
+            %p.img-preview.img-rounded
+              = image_tag story.upload_url, class: 'img-rounded img-responsive'
 
         %p{style: 'margin-top: 0.5em'}
           = link_to story.title, story_path(story), class: 'h3'
@@ -17,7 +18,8 @@
       - if story.has_uploads?
         .col-lg-6
           = link_to story_path(story), class: 'h4' do
-            = image_tag story.upload_url, class: 'img-rounded img-responsive img-preview small'
+            %p.img-preview.small.img-rounded
+              = image_tag story.upload_url, class: 'img-rounded img-responsive'
         .col-lg-6
           = link_to story.title, story_path(story), class: 'h4'
 
