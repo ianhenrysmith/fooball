@@ -64,12 +64,8 @@ class StoriesController < BaseController
   end
 
   def new_story
-    atts = {}
-    if allowed_params
-      atts = { parent_type: allowed_params[:parent_type],
-               parent_id:   allowed_params[:parent_id],
-               creator_id:  current_user.id }
-    end
+    atts = mass_assignable_atts
+    atts[:creator_id] = current_user.id
 
     Story.new(atts)
   end

@@ -24,16 +24,12 @@ class BaseController < ActionController::Base
 
   end
 
-  def allowed_params
-    @_allowed_params ||= _add_deep_params( params.require(_resource_name).permit(*_whitelisted_params, :asset) )
-  end
-
   def asset_params
-    allowed_params.slice(:asset)
+    _allowed_params.slice(:asset)
   end
 
   def mass_assignable_atts
-    _add_deep_params(allowed_params.slice(*_whitelisted_params))
+    _add_deep_params(_allowed_params.slice(*_whitelisted_params))
   end
 
   def get_users_by_team_id
@@ -41,7 +37,11 @@ class BaseController < ActionController::Base
   end
 
 
-  # -------------------------
+  # ------------------------- plz not call outside of base class
+
+  def _allowed_params
+    @_allowed_params ||= _add_deep_params( params.require(_resource_name).permit(*_whitelisted_params, :asset) )
+  end
 
   def _add_deep_params(atts)
     for att in _deep_params
