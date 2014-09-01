@@ -3,17 +3,4 @@
 .row
   .col-lg-10.col-lg-offset-1
     = link_to "Back to League", league_path(@league), class: 'btn-xs btn-default btn', style: 'margin-bottom: 2em'
-
-    %table.table.table-striped
-      - @ranking.team_rankings.each do |rank, rank_atts|
-        - team = @teams.detect{ |t| t.id.to_s == rank_atts[:team_id] }
-        - user = @users.detect{ |u| u.id == team.owner_id }
-
-        %tr
-          %td= rank
-
-          %td= link_to team.name, team_path(team)
-
-          %td= link_to user.name, user_path(user)
-
-          %td= rank_atts[:comment]
+    = render partial: 'ranking', locals: { ranking: @ranking }

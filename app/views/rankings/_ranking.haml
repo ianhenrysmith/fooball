@@ -1,0 +1,16 @@
+- preview ||= false
+
+%table.table.table-striped
+  - ranking.team_rankings.each do |rank, rank_atts|
+    - team = @teams.detect{ |t| t.id.to_s == rank_atts[:team_id] }
+    - user = @users.detect{ |u| u.id == team.owner_id }
+
+    %tr
+      %td= rank
+
+      %td= link_to team.name, team_path(team)
+
+      %td= link_to user.name, user_path(user)
+
+      - comment = preview ? truncate(rank_atts[:comment], length: 45) : rank_atts[:comment]
+      %td= comment

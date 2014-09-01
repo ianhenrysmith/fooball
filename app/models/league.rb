@@ -17,6 +17,10 @@ class League
     where(:user_ids.in => [user.id])
   end
 
+  def rankings
+    Ranking.where(league_id: id)
+  end
+
   def creator
     User.find(creator_id)
   end

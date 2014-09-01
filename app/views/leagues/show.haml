@@ -7,30 +7,22 @@
     - if @league.admin?(current_user)
       %p= link_to "New Ranking", new_ranking_path(ranking: {league_id: @league.id}), class: 'btn btn-primary btn-sm'
 
-    - for story in @stories
-      = link_to story_path(story), class: 'h4' do
-        - if story.has_uploads?
-          = image_tag story.upload_url, class: 'img-rounded img-responsive'
-
-        = story.title
-
-  .col-lg-8
-    - if @league.admin?(current_user)
       %p= link_to 'Edit League', edit_league_path(@league), class: 'btn btn-default btn-sm'
 
+    %h3 Stories
+    = render partial: 'stories_feed', locals: { stories: @stories }
+
+  .col-lg-8
     - has_team_in_league = @teams.any?{|t| t.owner_id == current_user.id}
-    - unless has_team_in_league
+    - if !has_team_in_league
       %p
         %strong You don't yet have a team in this league
       %p= link_to "Create a team", new_team_path(league_id: @league.id), class: 'btn btn-primary btn-sm'
 
-    %span Admins:
-    - for admin in @admins
-      = link_to admin.name, user_path(admin)
-
-    %p Teams:
-    - for team in @teams
-      - user = @users_by_team_id[team.id]
-      = link_to team.name, team_path(team)
-      %span owner:
-      = link_to user.name, user_path(user)
+    - else
+      - if @rankings.present?
+        - ranking = @rankings.last
+        %p
+          %span.h3 Current Power Rankings
+          = link_to("(view)", ranking_path(ranking))
+        = render partial: 'rankings/ranking', locals: { ranking: ranking, preview: true }

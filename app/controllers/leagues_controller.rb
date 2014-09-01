@@ -14,7 +14,7 @@ class LeaguesController < BaseController
   end
 
   def show
-    @stories = Story.for_parent(@league).to_a
+    @stories = Story.for_parent(@league).order_by(:created_at.desc).to_a
   end
 
   def edit
@@ -67,6 +67,7 @@ class LeaguesController < BaseController
     @users ||= @league.users
     @admins ||= @users.select{|u| @league.admin?(u)}
     @teams ||= @league.teams
+    @rankings ||= @league.rankings
     @users_by_team_id ||= get_users_by_team_id
   end
 

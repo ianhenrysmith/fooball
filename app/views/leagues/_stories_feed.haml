@@ -1,0 +1,26 @@
+- first_story = true
+- for story in stories
+  .row{ style: 'margin-bottom: 1em'}
+    - if first_story
+      - first_story = false
+      .col-lg-12
+        - if story.has_uploads?
+          = link_to story_path(story) do
+            = image_tag story.upload_url, class: 'img-rounded img-responsive img-preview'
+
+        %p{style: 'margin-top: 0.5em'}
+          = link_to story.title, story_path(story), class: 'h3'
+
+        %p= link_to truncate(story.body, length: 140), story_path(story)
+
+    - else
+      - if story.has_uploads?
+        .col-lg-6
+          = link_to story_path(story), class: 'h4' do
+            = image_tag story.upload_url, class: 'img-rounded img-responsive img-preview small'
+        .col-lg-6
+          = link_to story.title, story_path(story), class: 'h4'
+
+      - else
+        .col-lg-12
+          = link_to story.title, story_path(story), class: 'h4'
