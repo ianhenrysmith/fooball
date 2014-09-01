@@ -74,6 +74,7 @@ GEM
       mongoid-grid_fs (>= 1.3, < 3.0)
     columnize (0.8.9)
     connection_pool (2.0.0)
+    database_cleaner (1.3.0)
     debugger-linecache (1.2.0)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -264,6 +265,7 @@ DEPENDENCIES
   capybara
   carrierwave
   carrierwave-mongoid
+  database_cleaner
   devise
   fog
   haml (>= 3.0.0)

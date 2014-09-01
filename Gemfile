@@ -46,5 +46,5 @@ gem "aws-sdk"
 gem 'nested_form'
 
 gem "rspec-rails", ">= 2.0.1", group: [:development, :test]
-
+gem 'database_cleaner'
 

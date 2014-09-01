@@ -13,7 +13,7 @@ class BaseController < ActionController::Base
   private
 
   def redirect_unless_signed_in
-    redirect_to root unless current_user
+    redirect_to root_path unless current_user
   end
 
   def mass_assignable_atts

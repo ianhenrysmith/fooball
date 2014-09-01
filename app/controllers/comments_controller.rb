@@ -19,11 +19,11 @@ class CommentsController < BaseController
   end
 
   def edit
-
+    # not used
   end
 
   def update
-
+    # not used
   end
 
   private
