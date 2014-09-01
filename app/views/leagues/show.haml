@@ -9,8 +9,9 @@
 
       %p= link_to 'Edit League', edit_league_path(@league), class: 'btn btn-default btn-sm'
 
-    %h3 Stories
-    = render partial: 'stories_feed', locals: { stories: @stories }
+    - if @stories.present?
+      %h3 Stories
+      = render partial: 'stories_feed', locals: { stories: @stories }
 
   .col-lg-8
     - has_team_in_league = @teams.any?{|t| t.owner_id == current_user.id}

@@ -38,19 +38,17 @@ class LeaguesController < BaseController
   end
 
   def create
-    create_league
+    # could use `instance_variable_set("@#{:smoo}", 8)` to dry up more
+    @league.attributes = mass_assignable_atts
+
+    process_uploads(asset_params, @league)
+
+    @league.save
 
     redirect_to league_path(@league)
   end
 
   private
-
-  def create_league
-    # could use `instance_variable_set("@#{:smoo}", 8)` to dry up more
-    @league.attributes = mass_assignable_atts
-
-    @league.save
-  end
 
   def get_league
     if params[:id]

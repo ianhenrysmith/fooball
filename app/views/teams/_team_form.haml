@@ -1,12 +1,11 @@
-= form_for @team do |f|
+= form_for @team, html: { class: 'form-horizontal' } do |f|
   = f.hidden_field :league_id
-  %table
-    %tr
-      %td Name
-      %td
-        = f.text_field :name
+  .form-group
+    .col-lg-offset-2.col-lg-1 Name
 
-    %tr
-      %td
-      %td
-        = f.submit
+    .col-lg-6= f.text_field :name
+
+
+  .form-group
+    .col-sm-offset-3.col-sm-10
+      = f.submit nil, class: 'btn btn-default'
