@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe CommentsController, type: :controller do
   include ControllerHelpers
 
-  let(:user) { User.create }
+  let(:user) { User.create( email: 'genghis@goldenhorde.horse', password: 'p1llageth3vill4ge' ) }
   let(:parent) { Story.create }
 
   before do
